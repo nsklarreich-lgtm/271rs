@@ -6,7 +6,6 @@ pub enum DiffOp {
     Delete { index: usize, line: String },
 }
 
-// LCS table
 fn lcs_table(a: &[String], b: &[String]) -> Vec<Vec<usize>> {
     let n = a.len();
     let m = b.len();
@@ -24,7 +23,6 @@ fn lcs_table(a: &[String], b: &[String]) -> Vec<Vec<usize>> {
     dp
 }
 
-// Structured diff (machine reversible)
 pub fn diff_structured(old: &[String], new: &[String]) -> Vec<DiffOp> {
     let dp = lcs_table(old, new);
     let mut ops = Vec::new();
@@ -49,7 +47,7 @@ pub fn diff_structured(old: &[String], new: &[String]) -> Vec<DiffOp> {
     ops
 }
 
-// Human-readable unified diff
+
 pub fn diff_unified(old: &[String], new: &[String]) -> Vec<String> {
     let ops = diff_structured(old, new);
     let mut out = vec!["@@" .to_string()];
@@ -63,7 +61,7 @@ pub fn diff_unified(old: &[String], new: &[String]) -> Vec<String> {
     out
 }
 
-// Apply reverse diff for revert
+
 pub fn apply_reverse(lines: &mut Vec<String>, ops: &[DiffOp]) {
     for op in ops.iter().rev() {
         match op {
