@@ -1,10 +1,6 @@
-
-std::collections::HashMap
+mod lib;
 
 fn main() {
-    let mut h = HashMap::new();
-    h.insert("C151", "C280");
-    dbg!(h);
-    println!("Hello, world!");
-
+    let dag = lib::read_dag_from_stdin();
+    println!("{:#?}", dag);
 }
